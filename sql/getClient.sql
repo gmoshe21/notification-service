@@ -1,0 +1,1 @@
+SELECT * FROM client WHERE mobile_operator_code = $1 AND teg = $2;

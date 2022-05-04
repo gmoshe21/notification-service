@@ -1,0 +1,1 @@
+INSERT INTO client(id,phone_number,mobile_operator_code,teg,time_zone) VALUES($1,$2,$3,$4,$5);

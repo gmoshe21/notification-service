@@ -1,0 +1,1 @@
+SELECT status FROM message WHERE id_notification = $1 AND date_creation >= $2 AND id_client = $3 AND status = $4;

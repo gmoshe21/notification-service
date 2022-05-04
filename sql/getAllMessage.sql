@@ -1,0 +1,1 @@
+SELECT * FROM message WHERE id_notification = $1;

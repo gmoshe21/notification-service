@@ -1,0 +1,1 @@
+SELECT * FROM notification WHERE start_data <= CURRENT_TIMESTAMP AND CURRENT_TIMESTAMP <= finish_data;

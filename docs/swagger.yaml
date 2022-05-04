@@ -1,0 +1,266 @@
+basePath: /
+definitions:
+  todo.Client:
+    properties:
+      id:
+        type: string
+      number:
+        type: integer
+      num_kod:
+        type: integer
+      teg:
+        type: string
+      time_zone:
+        type: string
+    required:
+    - number
+    - num_kod
+    - teg
+    - time_zone
+  todo.Message:
+    properties:
+      id:
+        type: string
+      data:
+        type: integer
+      status:
+        type: integer
+      id_notification:
+        type: string
+      id_client:
+        type: string
+    required:
+    - id
+    - data
+    - status
+    - id_notification
+    - id_client
+  todo.Filter:
+    properties:
+      num_kod:
+        type: string
+      teg:
+        type: string
+    required:
+    - num_kod
+    - teg
+    type: object
+  todo.Notification:
+    properties:
+      id:
+        type: string
+      start_data:
+        type: integer
+      text:
+        type: integer
+      filter:
+        type: object
+        $ref: '#/definitions/todo.Filter'
+      finish_data:
+        type: string
+    required:
+    - id
+    - start_data
+    - text
+    - filter
+    - finish_data
+    type: object
+  todo.StatisticNotifications:
+    properties:
+      finished:
+        type: string
+      sent:
+        type: string
+      will_be_sent:
+        type: string
+    required:
+    - finished
+    - sent
+    - will_be_sent
+    type: object
+  todo.StatisticMessages:
+    properties:
+      delivered:
+        type: string
+      failure:
+        type: string
+    required:
+    - delivered
+    - failure
+    type: object
+  todo.AllStatistic:
+    properties:
+      notifications:
+        type: object
+        $ref: '#/definitions/todo.StatisticNotifications'
+      Messages:
+        type: object
+        $ref: '#/definitions/todo.StatisticMessages'
+    required:
+    - notifications
+    - messages
+host: localhost:8000
+info:
+  contact: {}
+  description: API Server for TodoList Application
+  title: Todo App API
+  version: "1.0"
+paths:
+  /client:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: info
+        in: body
+        name: Request body
+        required: true
+        schema:
+          $ref: '#/definitions/todo.Client'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Create client
+      tags:
+      - client
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: info
+        in: body
+        name: Request body
+        required: true
+        schema:
+          $ref: '#/definitions/todo.Client'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Change client
+      tags:
+      - client
+    delete:
+      parameters:
+        - name: id
+          in: path
+          description: Client ID (path/{id=value})
+          required: true
+          type: integer
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Delete client
+      tags:
+      - client
+  /notification:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: info
+        in: body
+        name: Request body
+        required: true
+        schema:
+          $ref: '#/definitions/todo.Notification'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Create notufication
+      tags:
+      - notification
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: info
+        in: body
+        name: Request body
+        required: true
+        schema:
+          $ref: '#/definitions/todo.Notification'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Change notification
+      tags:
+      - notification
+    delete:
+      parameters:
+        - name: id
+          in: path
+          description: notification ID (path/{id=value})
+          required: true
+          type: integer
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Delete notification
+      tags:
+      - notification
+  /statistic:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/todo.AllStatistic'
+        "500":
+          description: Internal Server Error
+      summary: SignUp
+      tags:
+      - statistic
+  /statistic/notification:
+    get:
+      parameters:
+        - name: id
+          in: path
+          description: notification ID (path/{id=value})
+          required: true
+          type: integer
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/todo.Message'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+
+swagger: "2.0"
